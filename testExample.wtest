@@ -1,9 +1,182 @@
-import example.pepita
+import autos.*
+import dependencia.*
+import trafic.*
+import pedidos.*
 
-describe "group of tests for pepita" {
+describe "Administracion de las flotas de rodados de laas dependencias pedidas" {
+ 
+const deportes = new Dependencia(cantidadDeEmpleados = 45) 
+const cultura = new Dependencia(cantidadDeEmpleados = 31)
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
-  }
+const cachito = new ChevroletCorsa(color = "Rojo" ) 
+const corsaAzul = new ChevroletCorsa(color = "Azul" ) 
+const corsaVerde = new ChevroletCorsa(color = "Verde" )
+const  autoKwid1 = new  RenaultKwid()
+const autoEspecial1 = new AutoEspecial(capacidad= 5, velocidadMaxima= 160, peso=1200 , color ="beige") 
+const  autoKwid2 = new  RenaultKwid()
+const  autoKwid3 = new  RenaultKwid()
+const pedido1 = new Pedido(distanciaARecorrer= 960, tiempoDeViaje= 8, cantidadDePasajeros= 4, coloresIncompatibles=["Azul" ,"Negro"]) 
+const pedido2 = new Pedido(distanciaARecorrer= 960, tiempoDeViaje= 8, cantidadDePasajeros= 7, coloresIncompatibles=["Azul" ,"Negro", "Rojo"]) 
+const pedido3 = new Pedido(distanciaARecorrer= 960, tiempoDeViaje= 6, cantidadDePasajeros= 7, coloresIncompatibles=["Azul" ,"Negro", "Rojo"]) 
+
+test "El peso total de la flota de deportes es de 6450." {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+  assert.equals(6450, deportes.pesoTotalFlota())
+}
+
+test "El peso total de la flota de cultura es de 10700." {
+  cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+  assert.equals(10700, cultura.pesoTotalFlota())
+}
+ 
+ test "Se encuentra bien equipada ls dependencia de deportes." {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+  assert.that(deportes.estaBienEquipada())
+}
+
+
+
+ 
+ test "Se encuentra bien equipada ls dependencia de cultura." {
+  cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+  assert.that(cultura.estaBienEquipada())
+}
+
+
+test "La capacidad total de rodados en color azul es 3" {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+  assert.equals(3, deportes.capacidadTotalEnColor("azul"))
+   }
+
+   
+test "La capacidad total de rodados en color azul es 10 en la dependencia de la cultura" {
+  cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+  assert.equals(10, cultura.capacidadTotalEnColor("azul"))
+}
+
+test "El color del rodado mas rapido en deportes es beige" {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+ assert.equals("beige", deportes. colorDelRodadosMasRapido())
+}
+
+test "El color del rodado mas rapido en cultura es rojo" {
+ cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+assert.equals("Rojo", cultura.colorDelRodadosMasRapido())
+}
+
+ test "IIndica que la flota de deportes es grande" {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+  assert.that(deportes.esGrande())
+}
+ test "IIndica que la flota de cultura es grande" {
+  cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+  assert.notThat(cultura.esGrande())
+}
+
+test "La capacidad faltante de la flota de depoirtes es de 25" {
+  deportes.agregarAFlota(cachito)
+  deportes.agregarAFlota(corsaAzul)
+  deportes.agregarAFlota(corsaVerde)
+  deportes.agregarAFlota(autoKwid1)
+  deportes.agregarAFlota(autoEspecial1)
+  assert.equals(25, deportes.capacidadFaltante())
+   }
+test "La capacidad faltante de la flota de cultura es de 12" {
+  cultura.agregarAFlota(cachito)
+  cultura.agregarAFlota(autoKwid1)
+  cultura.agregarAFlota(autoKwid2)
+  autoKwid3.tieneTanqueAdicional(false)
+  cultura.agregarAFlota(autoKwid3)
+  cultura.agregarAFlota(trafic)
+  assert.equals(12, cultura.capacidadFaltante())
+   }
+  /// test d pedidos
+
+test "Se verifica si cachito puede satisfacer un pedido de 960kms." {
+  assert.that(pedido1.puedeSatisfacerPedido(cachito))
+}
+
+test "Se verifica si cachito puede satisfacer un pedido de 960kms, pero con capacidd para 7 pasajeros." {
+  assert.notThat(pedido2.puedeSatisfacerPedido(cachito))
+}
+
+test "Se verifica si cachito puede satisfacer un pedido de igual al anterior pero con un tiempomax de 6hs y velocidad de160." {
+  assert.notThat(pedido3.puedeSatisfacerPedido(cachito))
+}
+
+test "Acelerar disminuye en uno el tiempo de viaje de cachito a 5 " {
+  pedido3.acelerar()
+  assert.equals(5, pedido3.tiempoDeViaje())
+}
+
+test "relaja el tiempo maximo, es decir lo aumenta a 1, como estaba en 6 ahora estara en 7" {
+  pedido3.relajar()
+  assert.equals(7,pedido3.tiempoDeViaje())
+}
+// etapa3
+
+test "se puede agregar 3 pedidos y ver cuandta cantidad se registran" {
+  deportes.agregarPedidos(pedido1)
+  deportes.agregarPedidos(pedido2)
+  deportes.agregarPedidos(pedido3)
+  assert.equals(3, deportes.totalDePasajerosEnLosPEdidos())
+}
+
+test "indica cuales no puedne ser satisfewchos" {
+  deportes.agregarPedidos(pedido1)
+  deportes.agregarPedidos(pedido2)
+  deportes.agregarPedidos(pedido3)
+ assert.equals(2, deportes.pedidosNoSatisfechos())  
+} //????????? no funciona 
+
+
+
 
 }
+
+
