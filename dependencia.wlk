@@ -30,12 +30,11 @@ class Dependencia {
 
  //method pedidosNoSatisfechos() = pedidos.filter({ped =>   rodados.none({rod => rod.puedeSatisfacerPedido(ped)})})
 // NONE- Significa: "NO hay ninguno que cumpla?” (. true → si ninguno cumple; .false → si al menos uno cumple)
-
-  method pedidosNoSatisfechos() =
-  pedidos.filter({ped =>
-    rodados.none({rod => rod.puedeSatisfacerPedido(ped)})
-  })
-
+method pedidosNoSatisfechos() =
+  pedidos.filter({ ped => not(rodados.any({ rod => rod.puedeSatisfacerPedido(ped) }))
+  }) // Filtra los pedidos para los que ningún rodado puede satisfacer el pedido.
+     // any devuelve true si existe al menos un rodado que puede satisfacerlo.
+     // El not niega ese resultado, quedándose con los pedidos no satisfechos.  
 method todosTienenEsteColorIncompatible(unColor) = pedidos.all({ped => ped.coloresIncompatibles().contains(unColor)})
 //“Para todos los pedidos, el color está dentro de sus colores incompatibles
 

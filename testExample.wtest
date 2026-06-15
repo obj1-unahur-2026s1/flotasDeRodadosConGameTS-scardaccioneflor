@@ -167,12 +167,11 @@ test "se puede agregar 3 pedidos y ver cuandta cantidad se registran" {
   assert.equals(3, deportes.totalDePasajerosEnLosPEdidos())
 }
 
-test "indica cuales no puedne ser satisfewchos" {
+test "Tanto el pedido1 como el pedido2 no son pedidos ssatisfechos." {
   deportes.agregarPedidos(pedido1)
   deportes.agregarPedidos(pedido2)
-  deportes.agregarPedidos(pedido3)
- assert.equals(2, deportes.pedidosNoSatisfechos())  
-} //????????? no funciona 
+ assert.equals( [pedido1, pedido2], deportes.pedidosNoSatisfechos())  
+} 
 
 
 
